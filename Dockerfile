@@ -4,7 +4,7 @@
 # BuildKit features: cache mounts, parallel builds, improved layer caching
 
 # Stage 1: Base system dependencies (rarely changes)
-FROM node:lts-bookworm-slim AS base
+FROM node:22-bookworm-slim AS base
 
 # Prevent interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -109,14 +109,7 @@ ENV OPENCLAW_BETA=${OPENCLAW_BETA} \
 # Install Vercel, Marp, QMD with BuildKit cache mount for faster rebuilds
 RUN --mount=type=cache,target=/data/.bun/install/cache \
     bun install -g vercel @marp-team/marp-cli https://github.com/tobi/qmd && hash -r && \
-    bun pm -g untrusted
-
-# Install node-gyp separately to ensure it's available before packages that need it
-RUN --mount=type=cache,target=/data/.bun/install/cache \
-    bun install -g node-gyp
-
-# Install remaining packages that may need node-gyp
-RUN --mount=type=cache,target=/data/.bun/install/cache \
+    bun pm -g untrusted && \
     bun install -g @openai/codex @google/gemini-cli opencode-ai @steipete/summarize @hyperbrowser/agent clawhub
 
 # Install OpenClaw with npm cache mount
