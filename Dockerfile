@@ -110,6 +110,7 @@ ENV OPENCLAW_BETA=${OPENCLAW_BETA} \
 RUN --mount=type=cache,target=/data/.bun/install/cache \
     bun install -g vercel @marp-team/marp-cli https://github.com/tobi/qmd && hash -r && \
     bun pm -g untrusted && \
+    bun install -g node-gyp && \
     bun install -g @openai/codex @google/gemini-cli opencode-ai @steipete/summarize @hyperbrowser/agent clawhub
 
 # Install OpenClaw with npm cache mount
