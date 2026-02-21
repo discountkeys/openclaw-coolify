@@ -95,11 +95,11 @@ services:
 
     command: ["bash", "/app/scripts/bootstrap.sh"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:18789/"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:18789/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 120s
+      start_period: 40s
 
   docker-proxy:
     image: tecnativa/docker-socket-proxy:latest
