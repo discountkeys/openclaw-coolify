@@ -11,7 +11,6 @@ services:
       context: .
       args:
         - OPENCLAW_BETA=${OPENCLAW_BETA:-false}
-    command: sleep 3600
     restart: on-failure:10
     ulimits:
       nofile:
@@ -94,7 +93,7 @@ services:
     depends_on:
       - docker-proxy
 
-    command: ["bash", "/app/scripts/bootstrap.sh"]
+    command: ["sleep","3600"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18789/health"]
       interval: 30s
