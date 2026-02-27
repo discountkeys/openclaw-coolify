@@ -11,6 +11,7 @@ services:
       context: .
       args:
         - OPENCLAW_BETA=${OPENCLAW_BETA:-false}
+    command: sleep 3600
     restart: on-failure:10
     ulimits:
       nofile:
