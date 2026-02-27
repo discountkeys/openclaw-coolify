@@ -6,7 +6,7 @@ services:
       - registry-data:/var/lib/registry
     environment:
       REGISTRY_HTTP_SECRET: ${SERVICE_BASE64_REGISTRY}
-  
+   
   openclaw:
     build:
       context: .
@@ -78,12 +78,12 @@ services:
       - docker-proxy
 
     command: ["bash", "/app/scripts/bootstrap.sh"]
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:18789/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://127.0.0.1:18789/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
 
   docker-proxy:
     image: tecnativa/docker-socket-proxy:latest
