@@ -102,6 +102,7 @@ FROM runtimes AS dependencies
 
 # OpenClaw install
 ARG OPENCLAW_BETA=false
+ARG OPENCLAW_VERSION=2026.5.7
 ENV OPENCLAW_BETA=${OPENCLAW_BETA} \
     OPENCLAW_NO_ONBOARD=1 \
     NPM_CONFIG_UNSAFE_PERM=true
@@ -123,7 +124,7 @@ RUN --mount=type=cache,target=/data/.npm \
     if [ "$OPENCLAW_BETA" = "true" ]; then \
     npm install -g openclaw@beta; \
     else \
-    npm install -g openclaw; \
+    npm install -g "openclaw@${OPENCLAW_VERSION}"; \
     fi && \
     if command -v openclaw >/dev/null 2>&1; then \
     echo "✅ openclaw binary found"; \
