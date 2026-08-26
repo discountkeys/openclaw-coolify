@@ -107,6 +107,12 @@ ENV OPENCLAW_BETA=${OPENCLAW_BETA} \
     NPM_CONFIG_UNSAFE_PERM=true
 
 # Install Vercel, Marp, QMD with BuildKit cache mount for faster rebuilds
+# QMD installs better-sqlite3, whose install script requires node-gyp when a
+# prebuilt binary is unavailable. Install it before any Bun global packages.
+RUN --mount=type=cache,target=/data/.npm \
+    npm install -g node-gyp && \
+    node-gyp --version
+
 RUN --mount=type=cache,target=/data/.bun/install/cache \
     bun install -g vercel @marp-team/marp-cli https://github.com/tobi/qmd && hash -r && \
     bun pm -g untrusted && \
